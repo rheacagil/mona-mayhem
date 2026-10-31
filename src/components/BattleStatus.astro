@@ -1,0 +1,20 @@
+<p id="battle-status" class="battle-status" data-battle-status role="status" aria-live="polite" aria-atomic="true" hidden></p>
+
+<style>
+	.battle-status {
+		width: min(100%, 900px);
+		margin: 0.8rem auto 0;
+		padding: 0.75rem 1rem;
+		border: 1px solid #72552d;
+		border-radius: 8px;
+		background: #302312;
+		color: #ffdc8d;
+		text-align: center;
+	}
+
+	.battle-status[data-state='error'] {
+		border-color: #793f58;
+		background: #301723;
+		color: #ffadc5;
+	}
+</style>

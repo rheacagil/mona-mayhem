@@ -1,0 +1,40 @@
+---
+import ContributionGrid from './ContributionGrid.astro';
+import PlayerProfile from './PlayerProfile.astro';
+import PlayerStats from './PlayerStats.astro';
+
+interface Props {
+	playerNumber: 1 | 2;
+}
+
+const { playerNumber } = Astro.props;
+---
+
+<article class="player-panel" data-player-panel={playerNumber} aria-label={`Player ${playerNumber} arena`}>
+	<PlayerProfile>{playerNumber}</PlayerProfile>
+	<ContributionGrid />
+	<PlayerStats />
+</article>
+
+<style>
+	.player-panel {
+		min-width: 0;
+		padding: 1rem;
+		border: 1px solid #443760;
+		border-radius: 14px;
+		background: linear-gradient(160deg, #211a31, #171322 55%);
+		box-shadow: 0 12px 32px rgb(0 0 0 / 20%);
+	}
+
+	.player-panel[data-player-panel='2'] {
+		border-color: #68435a;
+	}
+
+	.player-panel[data-player-panel='2'] :global([data-profile-avatar]) {
+		border-color: #ff7b9b;
+	}
+
+	.player-panel[data-player-panel='2'] :global(.player-label) {
+		color: #ff9bb2;
+	}
+</style>

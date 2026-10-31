@@ -1,0 +1,137 @@
+<form class="battle-controls" data-battle-form novalidate>
+	<label>
+		<span>PLAYER 1</span>
+		<input
+			name="playerOne"
+			type="text"
+			autocomplete="off"
+			placeholder="GitHub username"
+			aria-label="Player 1 GitHub username"
+			required
+			maxlength="39"
+			aria-describedby="battle-validation-help"
+			aria-errormessage="battle-status"
+		/>
+	</label>
+	<label>
+		<span>PLAYER 2</span>
+		<input
+			name="playerTwo"
+			type="text"
+			autocomplete="off"
+			placeholder="GitHub username"
+			aria-label="Player 2 GitHub username"
+			required
+			maxlength="39"
+			aria-describedby="battle-validation-help"
+			aria-errormessage="battle-status"
+		/>
+	</label>
+	<button type="submit" data-battle-button>BATTLE!</button>
+	<p class="validation-help" id="battle-validation-help">
+		Usernames can use letters, numbers, and single hyphens; they must start and end with a letter or number.
+	</p>
+</form>
+
+<style>
+	.battle-controls {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+		gap: 0.8rem;
+		align-items: end;
+		width: min(100%, 900px);
+		margin: 0 auto;
+		padding: 1rem;
+		border: 1px solid #443760;
+		border-radius: 14px;
+		background: #1b162b;
+		box-shadow: 0 12px 32px rgb(0 0 0 / 22%);
+	}
+
+	label {
+		display: grid;
+		gap: 0.4rem;
+		color: #c5badc;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+	}
+
+	input {
+		width: 100%;
+		min-height: 46px;
+		padding: 0.7rem 0.8rem;
+		border: 1px solid #55466f;
+		border-radius: 8px;
+		outline: none;
+		background: #100d1c;
+		color: #fff;
+		font: inherit;
+		letter-spacing: normal;
+	}
+
+	input:focus-visible {
+		border-color: #58f6c3;
+		box-shadow: 0 0 0 3px rgb(88 246 195 / 18%);
+	}
+
+	input[aria-invalid='true'] {
+		border-color: #ff7b9b;
+	}
+
+	button {
+		min-height: 46px;
+		padding: 0.7rem 1.2rem;
+		border: 0;
+		border-radius: 8px;
+		background: #ffcb4d;
+		color: #21162c;
+		cursor: pointer;
+		font: inherit;
+		font-weight: 950;
+		letter-spacing: 0.06em;
+		transition: transform 120ms ease, filter 120ms ease;
+	}
+
+	button:hover:not(:disabled) {
+		filter: brightness(1.08);
+		transform: translateY(-2px);
+	}
+
+	button:focus-visible {
+		outline: 3px solid #58f6c3;
+		outline-offset: 3px;
+	}
+
+	button:disabled {
+		cursor: wait;
+		opacity: 0.65;
+	}
+
+	.validation-help {
+		grid-column: 1 / -1;
+		margin: -0.3rem 0 0;
+		color: #9287a8;
+		font-size: 0.72rem;
+	}
+
+	@media (max-width: 620px) {
+		.battle-controls {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		}
+
+		button {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.battle-controls {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		button {
+			grid-column: auto;
+		}
+	}
+</style>

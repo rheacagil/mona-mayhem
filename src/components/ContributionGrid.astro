@@ -1,0 +1,114 @@
+<section class="calendar-section" aria-label="52-week contribution calendar">
+	<div class="calendar-heading">
+		<h3>CONTRIBUTION GRID</h3>
+		<p data-calendar-range>52 weeks</p>
+	</div>
+	<div class="calendar-scroll">
+		<div class="contribution-grid" data-contribution-grid role="img" aria-label="No contribution data yet"></div>
+	</div>
+	<div class="legend" aria-label="Contribution intensity legend">
+		<span>LESS</span>
+		<i data-level="0"></i><i data-level="1"></i><i data-level="2"></i><i data-level="3"></i><i data-level="4"></i>
+		<span>MORE</span>
+	</div>
+</section>
+
+<style>
+	.calendar-section {
+		min-width: 0;
+		margin-top: 1.4rem;
+	}
+
+	.calendar-heading {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+		align-items: baseline;
+	}
+
+	h3,
+	.calendar-heading p {
+		margin: 0;
+	}
+
+	h3 {
+		color: #c8bfd8;
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+	}
+
+	.calendar-heading p {
+		color: #9287a8;
+		font-size: 0.7rem;
+	}
+
+	.calendar-scroll {
+		overflow-x: auto;
+		margin-top: 0.7rem;
+		padding-bottom: 0.25rem;
+	}
+
+	.contribution-grid {
+		display: grid;
+		width: max-content;
+		grid-auto-columns: 0.62rem;
+		grid-auto-flow: column;
+		grid-template-rows: repeat(7, 0.62rem);
+		gap: 3px;
+	}
+
+	.legend {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 4px;
+		margin-top: 0.5rem;
+		color: #9287a8;
+		font-size: 0.58rem;
+	}
+
+	i,
+	[data-contribution-grid] span {
+		display: block;
+		width: 0.62rem;
+		height: 0.62rem;
+		border-radius: 2px;
+		background: #ebedf0;
+	}
+
+	[data-level='1'] {
+		background: #9be9a8;
+	}
+
+	[data-level='2'] {
+		background: #40c463;
+	}
+
+	[data-level='3'] {
+		background: #30a14e;
+	}
+
+	[data-level='4'] {
+		background: #216e39;
+	}
+
+	[data-contribution-grid] span[data-level='0'] {
+		background: #ebedf0;
+	}
+
+	[data-contribution-grid] span[data-level='1'] {
+		background: #9be9a8;
+	}
+
+	[data-contribution-grid] span[data-level='2'] {
+		background: #40c463;
+	}
+
+	[data-contribution-grid] span[data-level='3'] {
+		background: #30a14e;
+	}
+
+	[data-contribution-grid] span[data-level='4'] {
+		background: #216e39;
+	}
+</style>

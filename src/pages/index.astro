@@ -1,17 +1,90 @@
 ---
-
+import BattleControls from '../components/BattleControls.astro';
+import BattleHeader from '../components/BattleHeader.astro';
+import BattleScoreboard from '../components/BattleScoreboard.astro';
+import BattleStatus from '../components/BattleStatus.astro';
+import PlayerArena from '../components/PlayerArena.astro';
 ---
 
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Mona Mayhem</title>
+		<meta name="description" content="Pit two GitHub contribution calendars against each other in Mona Mayhem." />
+		<title>Mona Mayhem — Contribution Battle Arena</title>
 	</head>
 	<body>
-		<h1>Mona Mayhem</h1>
-		<p>Welcome to Mona Mayhem! Time to build a GitHub Contribution Battle Arena.</p>
+		<main class="game-shell">
+			<BattleHeader />
+			<BattleControls />
+			<BattleStatus />
+			<section class="arena" aria-label="Contribution battle arena">
+				<PlayerArena playerNumber={1} />
+				<BattleScoreboard />
+				<PlayerArena playerNumber={2} />
+			</section>
+			<footer>May the best contribution calendar win.</footer>
+		</main>
 	</body>
 </html>
+
+<style>
+	:global(*) {
+		box-sizing: border-box;
+	}
+
+	:global(body) {
+		margin: 0;
+		min-width: 320px;
+		background:
+			radial-gradient(ellipse at 50% 0, rgb(77 42 143 / 32%), transparent 48rem),
+			#100d1c;
+		color: #f7f3ff;
+		font-family: 'Segoe UI', sans-serif;
+	}
+
+	.game-shell {
+		width: min(100% - 2rem, 1440px);
+		margin: 0 auto;
+		padding: 2rem 0 1.5rem;
+	}
+
+	.arena {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(130px, 190px) minmax(0, 1fr);
+		gap: 1rem;
+		align-items: stretch;
+		margin-top: 1.5rem;
+	}
+
+	footer {
+		padding: 1.5rem 0 0;
+		color: #aaa1c1;
+		text-align: center;
+		font-size: 0.85rem;
+	}
+
+	@media (max-width: 850px) {
+		.arena {
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		}
+	}
+
+	@media (max-width: 560px) {
+		.game-shell {
+			width: min(100% - 1rem, 1440px);
+			padding-top: 1rem;
+		}
+
+		.arena {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>
+
+<script>
+	import '../scripts/battle';
+</script>
