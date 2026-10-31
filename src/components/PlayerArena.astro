@@ -18,23 +18,40 @@ const { playerNumber } = Astro.props;
 
 <style>
 	.player-panel {
+		--player-accent: var(--neon-cyan);
+		--player-secondary: var(--neon-green);
+		--grid-level-0: #111827;
+		--grid-level-1: #12434a;
+		--grid-level-2: #087c73;
+		--grid-level-3: #00bfa5;
+		--grid-level-4: #5fed83;
 		min-width: 0;
 		padding: 1rem;
-		border: 1px solid #443760;
-		border-radius: 14px;
-		background: linear-gradient(160deg, #211a31, #171322 55%);
-		box-shadow: 0 12px 32px rgb(0 0 0 / 20%);
+		border: 1px solid var(--player-accent);
+		border-radius: 5px;
+		background: linear-gradient(145deg, #111821, #0c0d16 65%);
+		box-shadow: 0 0 18px color-mix(in srgb, var(--player-accent) 24%, transparent), inset 0 0 22px rgb(138 43 226 / 8%);
 	}
 
 	.player-panel[data-player-panel='2'] {
-		border-color: #68435a;
+		--player-accent: var(--neon-magenta);
+		--player-secondary: var(--neon-gold);
+		--grid-level-1: #421638;
+		--grid-level-2: #7e1d5b;
+		--grid-level-3: #c0267a;
+		--grid-level-4: #ffd166;
 	}
 
-	.player-panel[data-player-panel='2'] :global([data-profile-avatar]) {
-		border-color: #ff7b9b;
+	.player-panel :global([data-profile-avatar]) {
+		border-color: var(--player-accent);
+		box-shadow: 0 0 12px color-mix(in srgb, var(--player-accent) 55%, transparent);
+	}
+
+	.player-panel :global(.player-label) {
+		color: var(--player-accent);
 	}
 
 	.player-panel[data-player-panel='2'] :global(.player-label) {
-		color: #ff9bb2;
+		color: var(--player-secondary);
 	}
 </style>

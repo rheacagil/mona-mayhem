@@ -1,6 +1,10 @@
 <section class="scoreboard" data-scoreboard data-state="idle" aria-label="Battle result" aria-live="polite">
 	<span class="versus-badge" data-versus-badge aria-label="versus">VS</span>
 	<h2 class="score-label">BATTLE STATUS</h2>
+	<p class="attract-indicator" data-attract-indicator>
+		<span>INSERT COIN</span>
+		<span>READY PLAYER 1</span>
+	</p>
 	<p class="score-message" data-score-message>READY?</p>
 	<p class="score-detail" data-score-detail>Enter two players to start</p>
 </section>
@@ -15,9 +19,10 @@
 		align-items: center;
 		align-self: center;
 		padding: 1rem 0.75rem;
-		border: 1px solid #483762;
-		border-radius: 14px;
-		background: linear-gradient(160deg, #261b3b, #171322);
+		border: 1px solid rgb(138 43 226 / 65%);
+		border-radius: 5px;
+		background: linear-gradient(160deg, #171226, #0d111b);
+		box-shadow: 0 0 18px rgb(138 43 226 / 18%), inset 0 0 20px rgb(0 245 255 / 5%);
 		text-align: center;
 	}
 
@@ -27,45 +32,92 @@
 		height: 2.8rem;
 		place-items: center;
 		margin-bottom: 0.6rem;
-		border: 2px solid #ffcb4d;
+		border: 2px solid var(--neon-green);
 		border-radius: 50%;
-		background: #21162c;
-		color: #ffcb4d;
-		font-size: 0.9rem;
-		font-weight: 950;
-		box-shadow: 0 0 18px rgb(255 203 77 / 25%);
+		background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-green));
+		background-size: 200% 200%;
+		color: #080b12;
+		font: 0.62rem var(--font-arcade);
+		text-shadow: 0 1px rgb(255 255 255 / 35%);
+		box-shadow: 0 0 18px rgb(0 245 255 / 35%);
 	}
 
 	.score-label {
 		margin: 0;
-		color: #a99abb;
-		font-size: 0.65rem;
-		font-weight: 800;
-		letter-spacing: 0.15em;
+		color: #91a0b7;
+		font: 0.48rem var(--font-arcade);
+		letter-spacing: 0;
+	}
+
+	.attract-indicator {
+		display: none;
+		margin: 0.65rem 0 0;
+		color: var(--neon-green);
+		font: 0.48rem / 2 var(--font-arcade);
+		text-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+	}
+
+	.attract-indicator span {
+		display: block;
+	}
+
+	.scoreboard[data-state='idle'] .attract-indicator {
+		display: block;
+		animation: attract-blink 1s steps(2, start) infinite;
+	}
+
+	.scoreboard[data-state='idle'] .score-message,
+	.scoreboard[data-state='idle'] .score-detail {
+		display: none;
 	}
 
 	.score-message {
 		margin: 0.5rem 0 0;
-		color: #ffcb4d;
-		font-size: clamp(1.3rem, 2.8vw, 2rem);
-		font-weight: 950;
-		line-height: 1.1;
+		color: var(--neon-green);
+		font: clamp(0.58rem, 1.2vw, 0.78rem) / 1.7 var(--font-arcade);
 		overflow-wrap: anywhere;
+		text-shadow: 0 0 10px currentColor;
 	}
 
 	.score-detail {
 		margin: 0.5rem 0 0;
-		color: #c8bfd8;
+		color: #a9c5d5;
+		font-family: var(--font-stats);
 		font-size: 0.8rem;
 		line-height: 1.4;
 	}
 
 	.scoreboard[data-state='loading'] .score-message {
-		color: #58f6c3;
+		color: var(--neon-green);
 	}
 
 	.scoreboard[data-state='draw'] .score-message {
-		color: #d3a9ff;
+		color: var(--neon-magenta);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.versus-badge {
+			animation: versus-shift 4s ease-in-out infinite;
+		}
+	}
+
+	@keyframes versus-shift {
+		0%,
+		100% {
+			background-position: 0% 50%;
+			box-shadow: 0 0 14px rgb(0 245 255 / 35%);
+		}
+
+		50% {
+			background-position: 100% 50%;
+			box-shadow: 0 0 22px rgb(255 59 212 / 55%);
+		}
+	}
+
+	@keyframes attract-blink {
+		to {
+			opacity: 0.35;
+		}
 	}
 
 	@media (max-width: 850px) {
@@ -81,6 +133,16 @@
 			grid-column: auto;
 			grid-row: auto;
 			min-height: 120px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.versus-badge {
+			animation: none;
+		}
+
+		.scoreboard[data-state='idle'] .attract-indicator {
+			animation: none;
 		}
 	}
 </style>

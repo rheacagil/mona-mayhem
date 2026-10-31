@@ -1,0 +1,183 @@
+<div class="countdown-overlay" data-countdown hidden role="status" aria-live="assertive" aria-atomic="true">
+	<div class="countdown-frame">
+		<p class="countdown-kicker">ARCADE SYSTEM</p>
+		<p class="countdown-vs">PLAYER 1 <span>VS</span> PLAYER 2</p>
+		<p class="countdown-value" data-countdown-value>3</p>
+	</div>
+</div>
+
+<div class="victory-overlay" data-victory-overlay hidden>
+	<div class="victory-frame" role="dialog" aria-modal="true" aria-labelledby="victory-title" tabindex="-1">
+		<p class="victory-kicker" data-victory-kicker>VICTORY!</p>
+		<h2 id="victory-title" data-victory-winner tabindex="-1"></h2>
+		<p class="victory-detail" data-victory-detail></p>
+		<div class="particle-field" data-particle-field aria-hidden="true"></div>
+		<button type="button" data-dismiss-victory>PLAY AGAIN</button>
+	</div>
+</div>
+
+<style>
+	.countdown-overlay,
+	.victory-overlay {
+		position: fixed;
+		inset: 0;
+		z-index: 50;
+		display: grid;
+		place-items: center;
+		padding: 1rem;
+		background: rgb(4 5 12 / 88%);
+		backdrop-filter: blur(5px);
+	}
+
+	.countdown-overlay[hidden],
+	.victory-overlay[hidden] {
+		display: none;
+	}
+
+	.countdown-frame,
+	.victory-frame {
+		position: relative;
+		width: min(100%, 680px);
+		padding: clamp(1.5rem, 6vw, 3rem);
+		overflow: hidden;
+		border: 2px solid var(--neon-cyan);
+		background: linear-gradient(145deg, #111a24, #160e20);
+		text-align: center;
+		box-shadow: 0 0 28px rgb(0 245 255 / 35%), inset 0 0 30px rgb(138 43 226 / 16%);
+	}
+
+	.countdown-kicker,
+	.countdown-vs,
+	.victory-kicker {
+		color: var(--neon-green);
+		font: clamp(0.55rem, 2vw, 0.8rem) / 1.8 var(--font-arcade);
+		text-shadow: 0 0 10px currentColor;
+	}
+
+	.countdown-vs {
+		color: #e8f7ff;
+		font-size: clamp(0.42rem, 1.7vw, 0.65rem);
+	}
+
+	.countdown-vs span {
+		margin: 0 0.5rem;
+		color: var(--neon-magenta);
+	}
+
+	.countdown-value {
+		margin: 1rem 0 0;
+		color: var(--neon-gold);
+		font: clamp(2.5rem, 14vw, 6rem) / 1.3 var(--font-arcade);
+		text-shadow: 0 0 12px currentColor, 0 0 36px currentColor;
+	}
+
+	.countdown-value[data-fight='true'] {
+		color: var(--neon-green);
+		font-size: clamp(1.4rem, 8vw, 3.2rem);
+		animation: fight-impact 250ms ease-out;
+	}
+
+	.victory-frame {
+		border-color: var(--neon-gold);
+		box-shadow: 0 0 34px rgb(255 209 102 / 35%), inset 0 0 30px rgb(255 59 212 / 12%);
+		animation: victory-impact 650ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
+	}
+
+	.victory-kicker {
+		margin: 0;
+		color: var(--neon-gold);
+		font-size: clamp(0.8rem, 3vw, 1.2rem);
+	}
+
+	h2 {
+		margin: 1.2rem 0;
+		color: var(--neon-green);
+		font: clamp(0.8rem, 3vw, 1.35rem) / 1.8 var(--font-arcade);
+		overflow-wrap: anywhere;
+		text-shadow: 0 0 12px currentColor;
+	}
+
+	.victory-detail {
+		color: #d3e2ef;
+		font-family: var(--font-stats);
+	}
+
+	button {
+		position: relative;
+		z-index: 2;
+		margin-top: 1rem;
+		padding: 0.8rem 1rem;
+		border: 1px solid var(--neon-cyan);
+		border-radius: 3px;
+		background: #08131a;
+		color: var(--neon-cyan);
+		cursor: pointer;
+		font: 0.55rem var(--font-arcade);
+		box-shadow: 0 0 12px rgb(0 245 255 / 35%);
+	}
+
+	button:focus-visible {
+		outline: 3px solid var(--neon-gold);
+		outline-offset: 3px;
+	}
+
+	.particle-field {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.particle {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 8px;
+		height: 8px;
+		background: var(--particle-color);
+		box-shadow: 0 0 10px var(--particle-color);
+		animation: particle-burst 900ms ease-out both;
+	}
+
+	@keyframes fight-impact {
+		50% {
+			transform: scale(1.18);
+		}
+	}
+
+	@keyframes victory-impact {
+		0% {
+			opacity: 0;
+			transform: scale(0.65);
+		}
+
+		70% {
+			opacity: 1;
+			transform: scale(1.06);
+		}
+
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@keyframes particle-burst {
+		to {
+			opacity: 0;
+			transform: translate(calc(-50% + var(--particle-x)), calc(-50% + var(--particle-y))) rotate(180deg) scale(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.victory-frame,
+		.countdown-value[data-fight='true'],
+		.particle {
+			animation: none;
+		}
+
+		.particle {
+			display: none;
+		}
+	}
+</style>

@@ -1,6 +1,8 @@
 ---
 import BattleControls from '../components/BattleControls.astro';
+import BattleEffects from '../components/BattleEffects.astro';
 import BattleHeader from '../components/BattleHeader.astro';
+import BattleHealthBars from '../components/BattleHealthBars.astro';
 import BattleScoreboard from '../components/BattleScoreboard.astro';
 import BattleStatus from '../components/BattleStatus.astro';
 import PlayerArena from '../components/PlayerArena.astro';
@@ -14,13 +16,21 @@ import PlayerArena from '../components/PlayerArena.astro';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content="Pit two GitHub contribution calendars against each other in Mona Mayhem." />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&display=swap"
+			rel="stylesheet"
+		/>
 		<title>Mona Mayhem — Contribution Battle Arena</title>
 	</head>
 	<body>
 		<main class="game-shell">
 			<BattleHeader />
+			<BattleHealthBars />
 			<BattleControls />
 			<BattleStatus />
+			<BattleEffects />
 			<section class="arena" aria-label="Contribution battle arena">
 				<PlayerArena playerNumber={1} />
 				<BattleScoreboard />
@@ -32,24 +42,66 @@ import PlayerArena from '../components/PlayerArena.astro';
 </html>
 
 <style>
+	:global(:root) {
+		color-scheme: dark;
+		--cabinet-bg: #0a0a12;
+		--cabinet-panel: #11111d;
+		--neon-cyan: #00f5ff;
+		--neon-green: #5fed83;
+		--neon-magenta: #ff3bd4;
+		--neon-gold: #ffd166;
+		--font-arcade: 'Press Start 2P', 'Courier New', monospace;
+		--font-stats: 'JetBrains Mono', 'Courier New', monospace;
+	}
+
 	:global(*) {
 		box-sizing: border-box;
 	}
 
 	:global(body) {
+		position: relative;
+		isolation: isolate;
 		margin: 0;
 		min-width: 320px;
-		background:
-			radial-gradient(ellipse at 50% 0, rgb(77 42 143 / 32%), transparent 48rem),
-			#100d1c;
-		color: #f7f3ff;
-		font-family: 'Segoe UI', sans-serif;
+		background: var(--cabinet-bg);
+		color: #e8f7ff;
+		font-family: var(--font-stats);
+	}
+
+	:global(body::before),
+	:global(body::after) {
+		position: fixed;
+		inset: 0;
+		z-index: 20;
+		pointer-events: none;
+		content: '';
+	}
+
+	:global(body::before) {
+		background: repeating-linear-gradient(
+			to bottom,
+			transparent 0,
+			transparent 3px,
+			rgb(0 0 0 / 28%) 4px,
+			rgb(0 0 0 / 28%) 5px
+		);
+		opacity: 0.3;
+	}
+
+	:global(body::after) {
+		z-index: 19;
+		background: radial-gradient(ellipse at center, transparent 48%, rgb(0 0 0 / 68%) 100%);
 	}
 
 	.game-shell {
+		position: relative;
+		z-index: 1;
 		width: min(100% - 2rem, 1440px);
 		margin: 0 auto;
-		padding: 2rem 0 1.5rem;
+		padding: 2rem 1rem 1.5rem;
+		border-right: 1px solid rgb(0 245 255 / 28%);
+		border-left: 1px solid rgb(255 59 212 / 28%);
+		box-shadow: 0 0 36px rgb(0 245 255 / 7%), 0 0 36px rgb(255 59 212 / 7%);
 	}
 
 	.arena {
@@ -62,9 +114,44 @@ import PlayerArena from '../components/PlayerArena.astro';
 
 	footer {
 		padding: 1.5rem 0 0;
-		color: #aaa1c1;
+		color: #91a0b7;
 		text-align: center;
 		font-size: 0.85rem;
+	}
+
+	:global(body.battle-shake) {
+		animation: cabinet-shake 520ms ease-in-out;
+	}
+
+	@keyframes cabinet-shake {
+		0%,
+		100% {
+			transform: translateX(0);
+		}
+
+		15%,
+		45%,
+		75% {
+			transform: translateX(-5px);
+		}
+
+		30%,
+		60%,
+		90% {
+			transform: translateX(5px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(*),
+		:global(*::before),
+		:global(*::after) {
+			scroll-behavior: auto !important;
+		}
+
+		:global(body.battle-shake) {
+			animation: none;
+		}
 	}
 
 	@media (max-width: 850px) {

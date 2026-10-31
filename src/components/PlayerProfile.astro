@@ -4,6 +4,7 @@
 		<p class="player-label">PLAYER <slot /></p>
 		<a data-profile-link hidden></a>
 		<h2 class="username" data-profile-username>Awaiting contender</h2>
+		<p class="fighter-class" data-fighter-class hidden></p>
 	</div>
 </header>
 
@@ -19,15 +20,17 @@
 		width: 56px;
 		height: 56px;
 		flex: 0 0 56px;
-		border: 2px solid #58f6c3;
+		border: 2px solid var(--player-accent, var(--neon-cyan));
 		border-radius: 50%;
 		object-fit: cover;
+		box-shadow: 0 0 14px color-mix(in srgb, var(--player-accent, #00f5ff) 60%, transparent);
 	}
 
 	.player-label {
 		margin: 0 0 0.25rem;
-		color: #58f6c3;
-		font-size: 0.68rem;
+		color: var(--player-accent, var(--neon-cyan));
+		font-family: var(--font-arcade);
+		font-size: 0.48rem;
 		font-weight: 800;
 		letter-spacing: 0.12em;
 	}
@@ -35,20 +38,42 @@
 	a,
 	.username {
 		margin: 0;
-		color: #fff;
-		font-size: 1.15rem;
-		font-weight: 800;
+		color: var(--player-secondary, var(--neon-green));
+		font-family: var(--font-stats);
+		font-size: 1rem;
+		font-weight: 700;
 		overflow-wrap: anywhere;
+		text-shadow: 0 0 8px color-mix(in srgb, var(--player-secondary, #5fed83) 55%, transparent);
+	}
+
+	.fighter-class {
+		display: inline-flex;
+		align-items: center;
+		margin: 0.35rem 0 0;
+		padding: 0.3rem 0.45rem;
+		border: 1px solid color-mix(in srgb, var(--player-accent, #00f5ff) 65%, transparent);
+		border-radius: 2px;
+		background: color-mix(in srgb, var(--player-accent, #00f5ff) 10%, #080b12);
+		color: var(--player-accent, var(--neon-cyan));
+		font-family: var(--font-arcade);
+		font-size: 0.42rem;
+		line-height: 1.5;
+		text-shadow: 0 0 8px color-mix(in srgb, var(--player-accent, #00f5ff) 55%, transparent);
+	}
+
+	.fighter-class[hidden] {
+		display: none;
 	}
 
 	a {
-		color: #ffcb4d;
+		color: var(--player-accent, var(--neon-cyan));
+		font-size: 0.74rem;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 3px;
 	}
 
 	a:focus-visible {
-		outline: 2px solid #58f6c3;
+		outline: 2px solid var(--player-accent, var(--neon-cyan));
 		outline-offset: 3px;
 	}
 </style>

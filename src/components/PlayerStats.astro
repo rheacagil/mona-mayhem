@@ -1,23 +1,23 @@
 <section class="stats-section" aria-label="Player contribution statistics">
 	<h3>FIGHTER STATS</h3>
 	<dl>
-		<div class="total-stat">
+		<div class="total-stat" data-stat-row="total" hidden>
 			<dt>TOTAL CONTRIBUTIONS</dt>
 			<dd data-stat="total">—</dd>
 		</div>
-		<div>
+		<div data-stat-row="longest-streak" hidden>
 			<dt>LONGEST STREAK</dt>
 			<dd data-stat="longest-streak">—</dd>
 		</div>
-		<div>
+		<div data-stat-row="current-streak" hidden>
 			<dt>CURRENT STREAK</dt>
 			<dd data-stat="current-streak">—</dd>
 		</div>
-		<div>
+		<div data-stat-row="peak-day" hidden>
 			<dt>PEAK DAY</dt>
 			<dd data-stat="peak-day">—</dd>
 		</div>
-		<div>
+		<div data-stat-row="consistency" hidden>
 			<dt>CONSISTENCY</dt>
 			<dd data-stat="consistency">—</dd>
 		</div>
@@ -31,9 +31,8 @@
 
 	h3 {
 		margin: 0 0 0.6rem;
-		color: #c8bfd8;
-		font-size: 0.72rem;
-		letter-spacing: 0.08em;
+		color: var(--player-accent, var(--neon-cyan));
+		font: 0.5rem var(--font-arcade);
 	}
 
 	dl {
@@ -46,9 +45,19 @@
 	dl div {
 		min-width: 0;
 		padding: 0.6rem;
-		border: 1px solid #382e4c;
-		border-radius: 7px;
-		background: #171322;
+		border: 1px solid color-mix(in srgb, var(--player-accent, #00f5ff) 30%, #151923);
+		border-radius: 3px;
+		background: #0c1018;
+	}
+
+	dl div[hidden] {
+		display: none;
+	}
+
+	dl div[data-revealed='true'] {
+		animation: stat-reveal 320ms ease-out both;
+		border-color: color-mix(in srgb, var(--player-accent, #00f5ff) 65%, #151923);
+		box-shadow: 0 0 12px color-mix(in srgb, var(--player-accent, #00f5ff) 22%, transparent);
 	}
 
 	dl .total-stat {
@@ -56,7 +65,8 @@
 	}
 
 	dt {
-		color: #9287a8;
+		color: #91a0b7;
+		font-family: var(--font-stats);
 		font-size: 0.58rem;
 		font-weight: 800;
 		letter-spacing: 0.06em;
@@ -64,14 +74,34 @@
 
 	dd {
 		margin: 0.2rem 0 0;
-		color: #f7f3ff;
+		color: #e8f7ff;
+		font-family: var(--font-stats);
 		font-size: 0.9rem;
 		font-weight: 800;
 		overflow-wrap: anywhere;
 	}
 
 	.total-stat dd {
-		color: #ffcb4d;
+		color: var(--player-secondary, var(--neon-green));
 		font-size: 1.25rem;
+		text-shadow: 0 0 8px color-mix(in srgb, var(--player-secondary, #5fed83) 55%, transparent);
+	}
+
+	@keyframes stat-reveal {
+		from {
+			opacity: 0;
+			transform: translateY(8px) scale(0.98);
+		}
+
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		dl div[data-revealed='true'] {
+			animation: none;
+		}
 	}
 </style>

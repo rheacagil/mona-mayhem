@@ -5,16 +5,37 @@
 		width: min(100%, 900px);
 		margin: 0.8rem auto 0;
 		padding: 0.75rem 1rem;
-		border: 1px solid #72552d;
-		border-radius: 8px;
-		background: #302312;
-		color: #ffdc8d;
+		border: 1px solid rgb(95 237 131 / 55%);
+		border-radius: 3px;
+		background: #0c1715;
+		color: var(--neon-green);
+		font-family: var(--font-stats);
 		text-align: center;
+		text-shadow: 0 0 8px currentColor;
 	}
 
 	.battle-status[data-state='error'] {
-		border-color: #793f58;
-		background: #301723;
-		color: #ffadc5;
+		border-color: #ff5470;
+		background: #1a0d16;
+		color: #ff8296;
+	}
+
+	.battle-status[data-state='loading'] {
+		border-color: var(--neon-magenta);
+		color: var(--neon-green);
+		animation: loading-shift 1.2s ease-in-out infinite alternate;
+	}
+
+	@keyframes loading-shift {
+		to {
+			color: var(--neon-magenta);
+			text-shadow: 0 0 12px currentColor;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.battle-status[data-state='loading'] {
+			animation: none;
+		}
 	}
 </style>

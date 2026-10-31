@@ -1,0 +1,129 @@
+<section class="health-bars" aria-label="Player health">
+	<div class="health-player player-one">
+		<div class="health-label">
+			<span data-health-name="1">PLAYER 1</span>
+			<span data-health-value="1">100%</span>
+		</div>
+		<div
+			class="health-track"
+			role="meter"
+			aria-label="Player 1 health"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-valuenow="100"
+			data-health-meter="1"
+		>
+			<span class="health-fill" data-health-fill="1"></span>
+		</div>
+	</div>
+	<span class="versus" aria-hidden="true">VS</span>
+	<div class="health-player player-two">
+		<div class="health-label">
+			<span data-health-name="2">PLAYER 2</span>
+			<span data-health-value="2">100%</span>
+		</div>
+		<div
+			class="health-track"
+			role="meter"
+			aria-label="Player 2 health"
+			aria-valuemin="0"
+			aria-valuemax="100"
+			aria-valuenow="100"
+			data-health-meter="2"
+		>
+			<span class="health-fill" data-health-fill="2"></span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.health-bars {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+		gap: 1rem;
+		align-items: center;
+		width: min(100%, 900px);
+		margin: 0 auto 1.25rem;
+		padding: 0.8rem 1rem;
+		border: 1px solid rgb(0 245 255 / 45%);
+		border-radius: 4px;
+		background: linear-gradient(90deg, #0d181b, #12101d 50%, #1b101b);
+		box-shadow: 0 0 18px rgb(0 245 255 / 10%), inset 0 0 15px rgb(138 43 226 / 10%);
+	}
+
+	.health-player {
+		min-width: 0;
+	}
+
+	.health-label {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+		margin-bottom: 0.4rem;
+		color: var(--neon-green);
+		font: 0.52rem var(--font-arcade);
+		text-shadow: 0 0 8px currentColor;
+	}
+
+	.player-two .health-label {
+		color: var(--neon-gold);
+	}
+
+	.health-track {
+		height: 1rem;
+		overflow: hidden;
+		border: 1px solid currentColor;
+		background: #06080d;
+		box-shadow: inset 0 0 8px #000;
+	}
+
+	.player-one .health-track {
+		color: var(--neon-green);
+	}
+
+	.player-two .health-track {
+		color: var(--neon-magenta);
+	}
+
+	.health-fill {
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, #087b48, var(--neon-green));
+		box-shadow: 0 0 12px var(--neon-green);
+		transition: width 350ms ease, filter 180ms ease;
+	}
+
+	.player-two .health-fill {
+		margin-left: auto;
+		background: linear-gradient(90deg, var(--neon-gold), #d839a8);
+		box-shadow: 0 0 12px var(--neon-magenta);
+	}
+
+	.versus {
+		color: var(--neon-magenta);
+		font: 0.55rem var(--font-arcade);
+		text-shadow: 0 0 8px currentColor;
+	}
+
+	@media (max-width: 520px) {
+		.health-bars {
+			gap: 0.45rem;
+			padding: 0.7rem 0.55rem;
+		}
+
+		.health-label {
+			font-size: 0.4rem;
+		}
+
+		.versus {
+			font-size: 0.42rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.health-fill {
+			transition: none;
+		}
+	}
+</style>
